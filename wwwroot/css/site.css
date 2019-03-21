@@ -1,0 +1,17 @@
+body {
+    padding-top: 3.5rem;
+    background-image: url(../images/seamless.png);
+}
+
+.bg-nav {
+    background-color: dodgerblue;
+}
+
+img {
+    width:500px;
+}
+
+ul {
+    max-height: 450px;
+    overflow: auto;
+}

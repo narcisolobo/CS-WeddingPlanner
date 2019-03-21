@@ -1,0 +1,37 @@
+@using WeddingPlanner.Models
+@model Wedding
+
+@{
+    ViewData["Title"] = "Wedding Planner";
+}
+
+<partial name="NavPartial"/>
+<div class="container mt-3 w-75 bg-white p-3 border rounded">
+  <div class="row">
+    <div class="col">
+      <h1 class="h2 mr-auto">The Wedding of @Model.WedderOne and @Model.WedderTwo</h1>
+      <h4>Wedding Date: @Model.WeddingDate.ToString("MMMM dd, yyyy")</h4>
+    </div>
+    <div class="col text-right">
+      <a href="/dashboard" role="button" class="btn btn-primary mr-2">Dashboard</a>
+      <a href="/logout" role="button" class="btn btn-secondary">Log out</a>
+    </div>
+  </div>
+  <hr>
+  <h4 class="ml-3 mb-3">Wedding Location: @Model.Street, @Model.City, @Model.State @Model.Zip</h4>
+  <div class="container">
+    <div class="row">
+      <div class="col-3">
+        <ul class="list-group">
+          <li class="list-group-item active">Wedding Guests:</li>
+          @foreach (var guest in @ViewBag.WeddingGuests) {
+            <li class="list-group-item">@guest.User.FirstName @guest.User.LastName</li>
+          }
+        </ul>
+      </div>
+      <div class="col-9 d-flex flex-wrap justify-content-center">
+        <iframe width="600" height="450" frameborder="1" style="border:1px solid grey;" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBcbGOQQ4Zk3sFgmqmGCEA-H_r7tnlglwk&q=@Model.Street+@Model.City+@Model.State+@Model.Zip" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</div>

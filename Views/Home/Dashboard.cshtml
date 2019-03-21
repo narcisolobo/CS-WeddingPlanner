@@ -1,0 +1,67 @@
+@using WeddingPlanner.Models
+@model User
+
+@{
+    ViewData["Title"] = "Wedding Planner";
+}
+
+<partial name="NavPartial"/>
+<div class="container mt-3 w-75 bg-white p-3 border rounded">
+  <div class="row">
+    <div class="col-sm-10">
+      <h1 class="h2 mr-auto">Welcome to the Wedding Planner, @Model.FirstName!</h1>
+    </div>
+    <div class="col text-right">
+      <a href="/logout" role="button" class="btn btn-danger">Log out</a>
+    </div>
+  </div>
+  <hr>
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Wedding</th>
+        <th scope="col">Date</th>
+        <th scope="col">Guests</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      @{
+        foreach(var wedding in @ViewBag.WeddingsWithGuestsAndUsers) {
+          <tr>
+            <td><a href="viewwedding/@wedding.WeddingId">@wedding.WedderOne and @wedding.WedderTwo</a></td>
+            <td>@wedding.WeddingDate.ToString("MMMM dd, yyyy")</td>
+            <td>@wedding.Guests.Count</td>
+            @if (@ViewBag.LoggedUserId == @wedding.UserId) {
+              <td class="text-right"><a role="button" class="btn btn-danger btn-sm" href="delete/@wedding.WeddingId">Delete</a></td>
+            }
+            else {
+              if (@wedding.Guests.Count == 0) {
+                <td><a href="RSVP/@wedding.WeddingId">RSVP</a></td>
+              }
+              else {
+                int flag = 0;
+                @foreach (var guest in @wedding.Guests) {
+                  @if (@guest.User == @ViewBag.LoggedUser) {
+                    flag = 1;
+                  }
+                }
+                if (flag == 1) {
+                  <td><a href="unRSVP/@wedding.WeddingId">Un-RSVP</a></td>
+                }
+                else {
+                  <td><a href="RSVP/@wedding.WeddingId">RSVP</a></td> 
+                }
+              }
+            }   
+          </tr>
+        }
+      }
+      <tr>
+        <td colspan="4" class="text-right">
+          <a href="/newwedding" role="button" class="btn btn-primary">New Wedding</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

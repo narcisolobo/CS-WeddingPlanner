@@ -1,0 +1,28 @@
+@using WeddingPlanner.Models
+@model User
+
+@{
+    ViewData["Title"] = "Wedding Planner";
+}
+<partial name="NavPartial"/>
+
+<div class="container mt-3 w-50 bg-white p-3 border rounded">
+  <form asp-action="ProcessLogin" asp-controller="Home" method="POST" class="p-3">
+    <h3 class="text-center mb-3">LOGIN</h3>
+    <p class="text-center"><a href="/register">Don't have an account? Click here to register.</a></p>
+    <hr>
+    <div class="row">
+      <div class="col">
+        <label asp-for="Email" class="ml-1"></label>
+        <input asp-for="Email" class="form-control" placeholder="Email Address">
+        <span asp-validation-for="Email" style="color:red;font-size:small;" class="ml-1"></span>
+      </div>
+      <div class="col">
+        <label asp-for="Password" class="ml-1"></label>
+        <input asp-for="Password" class="form-control" placeholder="Password">
+        <span asp-validation-for="Password" style="color:red;font-size:small;" class="ml-1"></span>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block mt-2">LOGIN</button>
+  </form>
+</div>
